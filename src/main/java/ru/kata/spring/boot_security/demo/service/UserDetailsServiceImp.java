@@ -24,7 +24,7 @@ public class UserDetailsServiceImp implements UserDetailsService {
         this.userRepository = userRepository;
     }
 
-    @Transactional
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<User> person = userRepository.findByEmail(email);

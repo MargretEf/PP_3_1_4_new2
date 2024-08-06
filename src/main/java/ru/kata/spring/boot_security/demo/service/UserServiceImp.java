@@ -47,7 +47,7 @@ public class UserServiceImp implements UserService {
 
     @Transactional
     @Override
-    public void register(User user) {
+    public void addNewUser(User user) {
         Set<Role> roles = new HashSet<>();
         for (Role role : user.getRole()) {
             roles.add(roleRepository.findById(role.getId()).get());
@@ -61,16 +61,14 @@ public class UserServiceImp implements UserService {
     @Override
     public void edit(User user) {
         if (user == null) {
-            throw new EntityNotFoundException("User with ID " + user.getId() + " not found");
+            throw new EntityNotFoundException("User not found");
         }
         //Это нужно, чтоб пароль не хэшировался каждый раз, когда редактируем юзера
         //Проверяет, если пароль совпадает с текущим - сохраняет, если нет - шифрует
         var currentPassword = userRepository.findById(user.getId()).get().getPassword();
-        if (user.getPassword().equals(currentPassword)) {
-            userRepository.save(user);
-        } else {
+        if (!user.getPassword().equals(currentPassword)) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
-            userRepository.save(user);
         }
+        userRepository.save(user);
     }
 }

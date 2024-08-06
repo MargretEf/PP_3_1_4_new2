@@ -49,7 +49,7 @@ public class AdminController {
         if (bindingResult.hasErrors()) {
             return "users";
         }
-        userService.register(user);
+        userService.addNewUser(user);
         return "redirect:/admin/users";
     }
 
@@ -60,8 +60,8 @@ public class AdminController {
     }
 
 
-    @PostMapping("/remove")
-    public String removeUserId(@ModelAttribute("showUser") User user) {
+    @PostMapping("/delete")
+    public String deleteUserId(@ModelAttribute("showUser") User user) {
         userService.deleteUser(user.getId());
         return "redirect:/admin/users";
     }
