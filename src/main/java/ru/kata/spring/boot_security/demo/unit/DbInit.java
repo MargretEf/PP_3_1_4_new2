@@ -47,8 +47,8 @@ public class DbInit {
         user.setAge((long) 20);
         user.setEmail("user@mail.ru");
         user.setPassword("user");
-        userService.register(user);
-        userService.register(admin);
+        userService.addNewUser(user);
+        userService.addNewUser(admin);
     }
 
 }
